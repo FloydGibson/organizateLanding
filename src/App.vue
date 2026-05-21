@@ -133,8 +133,6 @@ const upcomingEvents = [
         <a href="#eventos">Tipos de eventos</a>
         <a href="#contacto">Contacto</a>
       </nav>
-
-      <a class="button button--ghost" href="#contacto">Pedir demo</a>
     </header>
 
     <main>
@@ -301,17 +299,6 @@ const upcomingEvents = [
               <strong>{{ kind.description }}</strong>
             </div>
           </article>
-        </div>
-      </section>
-
-      <section class="cta-band">
-        <div>
-          <p class="section-label">Listo para crecer</p>
-        </div>
-
-        <div class="cta-actions">
-          <a class="button button--primary" href="#contacto">Pedir demo</a>
-          <a class="button button--secondary" href="#beneficios">Ver beneficios</a>
         </div>
       </section>
 
