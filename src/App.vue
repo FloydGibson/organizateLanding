@@ -1,11 +1,35 @@
 <script setup>
 const eventKinds = [
-  { label: 'general', color: 'var(--color-tertiary)' },
-  { label: 'personalActivity', color: '#2E7D32' },
-  { label: 'personalGoal', color: '#7B1FA2' },
-  { label: 'classEvent', color: '#1565C0' },
-  { label: 'task', color: '#EF6C00' },
-  { label: 'project', color: 'var(--color-primary)' },
+  {
+    label: 'GENERAL',
+    color: 'var(--color-tertiary)',
+    description: 'Notas, anuncios y eventos generales que no pertenecen a proyectos específicos.',
+  },
+  {
+    label: 'ACTIVIDAD PERSONAL',
+    color: '#2E7D32',
+    description: 'Recordatorios personales y acciones diarias (ej.: llamadas, recados).',
+  },
+  {
+    label: 'META PERSONAL',
+    color: '#7B1FA2',
+    description: 'Objetivos personales con seguimiento a medio/largo plazo.',
+  },
+  {
+    label: 'CLASES',
+    color: '#1565C0',
+    description: 'Sesiones programadas, clases y talleres con horario fijo.',
+  },
+  {
+    label: 'TAREA',
+    color: '#EF6C00',
+    description: 'Tareas y pruebas críticas a ejecutar (QA, integraciones, fixes).',
+  },
+  {
+    label: 'PROYECTO',
+    color: 'var(--color-primary)',
+    description: 'Hitos, lanzamientos y coordinación entre equipos para entregables.',
+  },
 ]
 
 const benefits = [
@@ -58,6 +82,38 @@ const highlights = [
   { value: '02', label: 'mapeo de colores coherente con el sistema' },
   { value: '03', label: 'experiencia limpia para planear sin distracciones' },
 ]
+
+const calendarDays = [
+  { weekday: 'Lun', day: '18', selected: false, dots: ['personalActivity'] },
+  { weekday: 'Mar', day: '19', selected: false, dots: ['task'] },
+  { weekday: 'Mie', day: '20', selected: true, dots: ['project'] },
+  { weekday: 'Jue', day: '21', selected: false, dots: ['classEvent'] },
+  { weekday: 'Vie', day: '22', selected: false, dots: ['personalGoal'] },
+  { weekday: 'Sab', day: '23', selected: false, dots: ['general'] },
+  { weekday: 'Dom', day: '24', selected: false, dots: [] },
+]
+
+const currentDayEvent = {
+  title: 'Revisión de métricas',
+  kind: 'Actividad personal',
+  time: '12:14 - 13:14',
+  description: 'Bloque corto para revisar avances, pendientes y próximos pasos.',
+}
+
+const upcomingEvents = [
+  {
+    title: 'Planificación semanal',
+    kind: 'General',
+    time: 'Sabado 23 - 12:14 a 13:14',
+    description: 'Evento general para organizar prioridades, entregas y recordatorios.',
+  },
+  {
+    title: 'Entrega de proyecto',
+    kind: 'Proyecto',
+    time: 'Vie 22 - 16:30 a 17:15',
+    description: 'Cierre de hitos y verificación de entregables antes del envío.',
+  },
+]
 </script>
 
 <template>
@@ -84,7 +140,6 @@ const highlights = [
     <main>
       <section class="hero">
         <div class="hero-copy">
-          <p class="eyebrow">Landing estática para tu app de organización</p>
           <h1>Organiza tu vida con una vista clara, serena y enfocada.</h1>
           <p class="hero-text">
             Organizate reúne tareas, metas, clases, proyectos y actividades personales en una
@@ -114,33 +169,77 @@ const highlights = [
         </div>
 
         <aside class="hero-panel" aria-label="Vista previa de la interfaz">
-          <div class="panel-top">
-            <span>Semana en foco</span>
-            <strong>Mar 20</strong>
+          <div class="hero-panel__header">
+            <p class="hero-panel__month">mayo 2026</p>
+            <div class="hero-panel__tabs" aria-hidden="true">
+              <span>mes</span>
+              <span class="is-active">✓ semana</span>
+              <span>dia</span>
+            </div>
           </div>
 
-          <div class="calendar-grid" aria-hidden="true">
-            <span v-for="day in ['L', 'M', 'X', 'J', 'V', 'S', 'D']" :key="day">{{ day }}</span>
-            <button class="calendar-pill calendar-pill--primary">09:00</button>
-            <button class="calendar-pill">10:30</button>
-            <button class="calendar-pill calendar-pill--project">12:00</button>
-            <button class="calendar-pill">14:00</button>
-            <button class="calendar-pill calendar-pill--task">16:30</button>
-            <button class="calendar-pill calendar-pill--goal">18:00</button>
-          </div>
+          <section class="app-card app-card--week">
+            <h3>Semana actual</h3>
+            <div class="week-strip" aria-hidden="true">
+              <button
+                v-for="day in calendarDays"
+                :key="day.weekday + day.day"
+                class="week-day"
+                :class="{ 'is-selected': day.selected }"
+              >
+                <span>{{ day.weekday }}</span>
+                <strong>{{ day.day }}</strong>
+                <i
+                  v-if="day.dots.length"
+                  class="week-day__dot"
+                  :style="{
+                    backgroundColor:
+                      day.dots[0] === 'project'
+                        ? 'var(--color-primary)'
+                        : day.dots[0] === 'task'
+                          ? '#EF6C00'
+                          : day.dots[0] === 'classEvent'
+                            ? '#1565C0'
+                            : day.dots[0] === 'personalGoal'
+                              ? '#7B1FA2'
+                              : day.dots[0] === 'personalActivity'
+                                ? '#2E7D32'
+                                : 'var(--color-tertiary)',
+                  }"
+                ></i>
+              </button>
+            </div>
+          </section>
 
-          <div class="preview-stack">
-            <article>
-              <span>Hoy</span>
-              <strong>3 tareas clave</strong>
-              <p>Separadas por prioridad y tipo de evento.</p>
+          <section class="app-card app-card--highlight">
+            <h3>Eventos del dia 20/05/2026</h3>
+            <article class="event-card event-card--today">
+              <span class="event-card__dot event-card__dot--personal"></span>
+              <div>
+                <div class="event-card__head">
+                  <strong>{{ currentDayEvent.title }}</strong>
+                  <span>{{ currentDayEvent.kind }}</span>
+                </div>
+                <p>{{ currentDayEvent.time }}</p>
+                <small>{{ currentDayEvent.description }}</small>
+              </div>
             </article>
-            <article>
-              <span>Proyecto</span>
-              <strong>Avance 68%</strong>
-              <p>Seguimiento visible en un solo vistazo.</p>
+          </section>
+
+          <section class="app-card app-card--list">
+            <h3>Eventos proximos de la semana</h3>
+            <article v-for="event in upcomingEvents" :key="event.title" class="event-card">
+              <span class="event-card__dot"></span>
+              <div>
+                <div class="event-card__head">
+                  <strong>{{ event.title }}</strong>
+                  <span>{{ event.kind }}</span>
+                </div>
+                <p>{{ event.time }}</p>
+                <small>{{ event.description }}</small>
+              </div>
             </article>
-          </div>
+          </section>
         </aside>
       </section>
 
@@ -199,7 +298,7 @@ const highlights = [
             <span class="kind-dot" :style="{ backgroundColor: kind.color }"></span>
             <div>
               <p>{{ kind.label }}</p>
-              <strong>{{ kind.color }}</strong>
+              <strong>{{ kind.description }}</strong>
             </div>
           </article>
         </div>
@@ -217,27 +316,8 @@ const highlights = [
       </section>
 
       <section id="contacto" class="footer-card">
-        <div>
-          <p class="section-label">Contacto</p>
-          <h2>
-            Organizate está preparada para presentar tu app con una imagen clara y profesional.
-          </h2>
-        </div>
-
-        <div class="contact-grid">
-          <article>
-            <span>Primary</span>
-            <strong>#C21807</strong>
-          </article>
-          <article>
-            <span>Surface</span>
-            <strong>#FFFFFF / #121212</strong>
-          </article>
-          <article>
-            <span>Fuente</span>
-            <strong>Mona Sans</strong>
-          </article>
-        </div>
+        <p class="section-label">Contacto</p>
+        <h2>Organizate está preparada para presentar tu app con una imagen clara y profesional.</h2>
       </section>
     </main>
   </div>
@@ -566,16 +646,12 @@ main {
 
 .hero-panel {
   display: grid;
-  gap: 16px;
+  gap: 18px;
   padding: 22px;
-  border-radius: 28px;
-  background:
-    linear-gradient(
-      180deg,
-      color-mix(in srgb, var(--color-primary-container) 55%, transparent),
-      transparent 42%
-    ),
-    color-mix(in srgb, var(--color-surface) 92%, transparent);
+  border-radius: 20px;
+  background: color-mix(in srgb, var(--color-inverse-surface) 8%, var(--color-surface));
+  border: 1px solid color-mix(in srgb, var(--color-on-surface) 6%, transparent);
+  box-shadow: 0 22px 60px color-mix(in srgb, var(--color-shadow) 18%, transparent);
 }
 
 .panel-top {
@@ -589,71 +665,277 @@ main {
 
 .calendar-grid {
   display: grid;
-  grid-template-columns: repeat(7, minmax(0, 1fr));
-  gap: 10px;
+  gap: 12px;
 }
 
-.calendar-grid span {
+.day-headers {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+}
+
+.day-headers span {
   text-align: center;
-  font-size: 0.76rem;
+  font-size: 0.72rem;
   font-weight: 700;
   color: var(--color-on-surface-variant);
   text-transform: uppercase;
 }
 
+.pill-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+}
+
 .calendar-pill {
-  grid-column: span 2;
-  min-height: 64px;
-  border: 1px solid transparent;
-  border-radius: 18px;
-  background: var(--color-secondary-container);
-  color: var(--color-on-secondary-container);
-  font-family: inherit;
-  font-weight: 700;
-  text-align: left;
+  min-height: 72px;
+  border-radius: 14px;
   padding: 14px 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 6px;
+  color: var(--color-on-surface);
+  background: color-mix(
+    in srgb,
+    var(--color-secondary-container) 36%,
+    var(--color-inverse-surface)
+  );
+  box-shadow:
+    0 8px 22px color-mix(in srgb, var(--color-shadow) 18%, transparent),
+    inset 0 -6px 14px rgba(0, 0, 0, 0.12);
+  border: 1px solid color-mix(in srgb, var(--color-on-surface) 4%, transparent);
+}
+
+.calendar-pill strong {
+  display: block;
+  font-size: 0.95rem;
+  margin-bottom: 6px;
+}
+.pill-time {
+  display: block;
+  font-size: 0.78rem;
+  color: color-mix(in srgb, var(--color-on-surface) 72%, var(--color-on-surface-variant));
+  font-weight: 600;
+}
+
+.pill-desc {
+  margin: 6px 0 0;
+  font-size: 0.75rem;
+  color: color-mix(in srgb, var(--color-on-surface) 48%, var(--color-on-surface-variant));
+  line-height: 1.2;
 }
 
 .calendar-pill--primary {
-  background: var(--color-primary);
+  background: linear-gradient(
+    180deg,
+    var(--color-primary),
+    color-mix(in srgb, var(--color-primary) 72%, black)
+  );
   color: var(--color-on-primary);
 }
 
 .calendar-pill--project {
-  background: color-mix(in srgb, var(--color-primary-container) 80%, var(--color-primary));
+  background: linear-gradient(
+    180deg,
+    color-mix(in srgb, var(--color-primary) 28%, var(--color-primary-container)),
+    var(--color-primary-container)
+  );
   color: var(--color-on-primary-container);
 }
 
 .calendar-pill--task {
-  background: color-mix(in srgb, #ef6c00 24%, var(--color-surface));
+  background: linear-gradient(180deg, #6b3f12, #7a4a18);
   color: var(--color-on-surface);
 }
 
 .calendar-pill--goal {
-  background: color-mix(in srgb, #7b1fa2 24%, var(--color-surface));
+  background: linear-gradient(180deg, #3a0f3a, #4b1a52);
   color: var(--color-on-surface);
 }
 
-.preview-stack {
-  display: grid;
+.hero-panel__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   gap: 12px;
 }
 
-.preview-stack article {
-  padding: 16px;
+.hero-panel__month {
+  margin: 0;
+  font-size: 1.12rem;
+  font-weight: 700;
+  color: var(--color-on-surface);
+  text-transform: lowercase;
 }
 
-.preview-stack span,
-.kind-card strong,
+.hero-panel__tabs {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  width: min(100%, 356px);
+  border: 1px solid color-mix(in srgb, var(--color-primary) 72%, transparent);
+  border-radius: 18px;
+  overflow: hidden;
+}
+
+.hero-panel__tabs span {
+  display: grid;
+  place-items: center;
+  padding: 14px 18px;
+  background: #2f2f2f;
+  color: #ededed;
+  font-weight: 700;
+  font-size: 1rem;
+}
+
+.hero-panel__tabs .is-active {
+  background: var(--color-primary);
+  color: var(--color-on-primary);
+}
+
+.app-card {
+  padding: 18px;
+  border-radius: 20px;
+  background: #171717;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.app-card h3 {
+  margin: 0 0 16px;
+  font-size: 1.02rem;
+  color: #f2f2f2;
+}
+
+.app-card--highlight {
+  background: #131313;
+}
+
+.app-card--list {
+  background: #171717;
+}
+
+.week-strip {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.week-day {
+  position: relative;
+  min-height: 108px;
+  border: 0;
+  border-radius: 16px;
+  background: #2c2c2c;
+  color: #f0f0f0;
+  padding: 12px 10px 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  font-family: inherit;
+}
+
+.week-day.is-selected {
+  background: #ff5b4a;
+}
+
+.week-day span {
+  font-size: 0.82rem;
+  line-height: 1.1;
+}
+
+.week-day strong {
+  font-size: 1.4rem;
+  line-height: 1;
+}
+
+.week-day__dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 999px;
+  margin-top: 6px;
+}
+
+.event-card {
+  display: flex;
+  gap: 14px;
+  padding: 18px;
+  border-radius: 20px;
+  background: #222;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.event-card + .event-card {
+  margin-top: 12px;
+}
+
+.event-card--today {
+  background: #263226;
+  border-color: rgba(46, 125, 50, 0.35);
+}
+
+.event-card__dot {
+  flex: none;
+  width: 14px;
+  height: 14px;
+  margin-top: 5px;
+  border-radius: 999px;
+  background: #e5e5e5;
+}
+
+.event-card__dot--personal {
+  background: #2e7d32;
+}
+
+.event-card__head {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  align-items: flex-start;
+  margin-bottom: 6px;
+}
+
+.event-card__head strong {
+  color: #f2f2f2;
+  font-size: 1.1rem;
+}
+
+.event-card__head span {
+  flex: none;
+  padding: 6px 10px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.08);
+  color: #9fd59f;
+  font-size: 0.76rem;
+  font-weight: 700;
+}
+
+.event-card p {
+  margin: 0;
+  color: #ededed;
+  font-size: 1rem;
+}
+
+.event-card small {
+  display: block;
+  margin-top: 6px;
+  color: #b9b9b9;
+  line-height: 1.45;
+}
+
+.kind-card strong {
+  display: block;
+  margin-top: 6px;
+  font-size: 0.76rem;
+  text-transform: none;
+  letter-spacing: normal;
+}
+
 .contact-grid span {
   font-size: 0.82rem;
   text-transform: uppercase;
   letter-spacing: 0.08em;
-}
-
-.preview-stack strong {
-  margin: 6px 0 4px;
-  font-size: 1.05rem;
 }
 
 .ticker {
