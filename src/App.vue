@@ -1,4 +1,10 @@
 <script setup>
+import logoUrl from '../logo_plain.png'
+import diegoOrtezPhoto from '../developers/diego_ortez.png'
+import diegoAlexanderPhoto from '../developers/diego_alexander.jpg'
+import jonathanPhoto from '../developers/jonathan.jpeg'
+import fernandoPhoto from '../developers/fernando_linares.jpg'
+
 const eventKinds = [
   {
     label: 'GENERAL',
@@ -23,7 +29,8 @@ const eventKinds = [
   {
     label: 'TAREA',
     color: '#EF6C00',
-    description: 'Tareas y pruebas críticas a ejecutar (QA, integraciones, fixes).',
+    description:
+      'Tareas proximas con fecha de entrega, ideal para pendientes académicos o laborales. ',
   },
   {
     label: 'PROYECTO',
@@ -114,13 +121,59 @@ const upcomingEvents = [
     description: 'Cierre de hitos y verificación de entregables antes del envío.',
   },
 ]
+
+const developerContacts = [
+  {
+    name: 'Diego Arturo Ortez Castillo',
+    profession: 'Fullstack Developer',
+    email: 'oc22002@ues.edu.sv',
+    role: 'Desarrollo de la interfaz movil y optimizacion de rendimiento.',
+    description:
+      'Aficionado del front-end y el diseño, siempre dispuesto a trabajar en todo tipo de proyectos.',
+    skills: ['Flutter / Dart'],
+    gitUser: 'FloydGibson',
+    photoUrl: diegoOrtezPhoto,
+  },
+  {
+    name: 'Diego Alexander Agueda Rosales',
+    profession: 'Fullstack Developer',
+    email: 'ar23010@ues.edu.sv',
+    description:
+      'Fanatico de la optimización y el rendimiento. Siempre investigando y aprendiendo sobre las tecnologías nuevas o ya existentes.',
+    role: 'Optimización de rendimiento y resolución de problemas.',
+    skills: ['Flutter / Dart', 'Node.js', 'SQL', 'REST APIs', 'Docker', 'Java'],
+    gitUser: 'ar23010',
+    photoUrl: diegoAlexanderPhoto,
+  },
+  {
+    name: 'Jonathan Javier Mejía Ramírez',
+    profession: 'Fullstack Developer',
+    email: 'mr23005@ues.edu.sv',
+    description:
+      'Crea web apps escalables de principio a fin. Apasionado por el código limpio, el diseño responsivo y las APIs eficientes.',
+    role: 'Implementación de sembast y funcionalidades de sincronización en la app.',
+    skills: ['Flutter / Dart', 'Node.js', 'PostgreSQL', 'REST APIs', 'Docker', 'CI/CD'],
+    gitUser: 'mr23005-student',
+    photoUrl: jonathanPhoto,
+  },
+  {
+    name: 'Fernando José Linares Pacheco',
+    profession: 'Fullstack Developer',
+    email: 'lp23006@ues.edu.sv',
+    description: '',
+    role: 'Integración con Google, servicios en la nube y optimización de la experiencia del usuario.',
+    skills: ['Flutter / Dart', 'Node.js', 'SQL', 'REST APIs', 'Java', 'JavaScript'],
+    gitUser: 'lp23006',
+    photoUrl: fernandoPhoto,
+  },
+]
 </script>
 
 <template>
   <div class="page-shell">
     <header class="topbar">
       <div class="brand-mark">
-        <span class="brand-badge">O</span>
+        <img class="brand-logo" :src="logoUrl" alt="Organizate" />
         <div>
           <p>Organizate</p>
           <span>Planifica con intención</span>
@@ -303,8 +356,45 @@ const upcomingEvents = [
       </section>
 
       <section id="contacto" class="footer-card">
-        <p class="section-label">Contacto</p>
-        <h2>Organizate está preparada para presentar tu app con una imagen clara y profesional.</h2>
+        <div class="section-intro">
+          <p class="section-label">Contacto</p>
+          <h2>Conoce al equipo detrás de Organizate.</h2>
+          <p>
+            Esta es la información de contacto y el aporte principal de cada desarrollador que
+            participa en la app.
+          </p>
+        </div>
+
+        <div class="contact-grid">
+          <article
+            v-for="developer in developerContacts"
+            :key="developer.email"
+            class="contact-card"
+          >
+            <img class="contact-card__photo" :src="developer.photoUrl" :alt="developer.name" />
+            <div class="contact-card__body">
+              <p class="contact-card__profession">{{ developer.profession }}</p>
+              <strong>{{ developer.name }}</strong>
+              <span class="contact-card__role">{{ developer.role }}</span>
+              <p class="contact-card__description">{{ developer.description }}</p>
+
+              <div class="contact-card__links">
+                <a :href="`mailto:${developer.email}`">{{ developer.email }}</a>
+                <a
+                  :href="`https://github.com/${developer.gitUser}`"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  @{{ developer.gitUser }}
+                </a>
+              </div>
+
+              <div class="contact-card__skills">
+                <span v-for="skill in developer.skills" :key="skill">{{ skill }}</span>
+              </div>
+            </div>
+          </article>
+        </div>
       </section>
     </main>
   </div>
@@ -466,20 +556,13 @@ const upcomingEvents = [
   font-size: 0.84rem;
 }
 
-.brand-badge {
-  display: grid;
-  place-items: center;
+.brand-logo {
   width: 46px;
   height: 46px;
-  border-radius: 16px;
-  background: linear-gradient(
-    135deg,
-    var(--color-primary),
-    color-mix(in srgb, var(--color-primary) 60%, black)
-  );
-  color: var(--color-on-primary);
-  font-weight: 700;
-  box-shadow: 0 12px 30px color-mix(in srgb, var(--color-primary) 35%, transparent);
+  object-fit: contain;
+  display: block;
+  border-radius: 14px;
+  box-shadow: 0 12px 30px color-mix(in srgb, var(--color-primary) 25%, transparent);
 }
 
 .nav-links {
@@ -1074,7 +1157,75 @@ main {
 }
 
 .contact-grid {
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: 1fr;
+}
+
+.contact-card {
+  display: grid;
+  grid-template-columns: 96px minmax(0, 1fr);
+  gap: 18px;
+  align-items: start;
+}
+
+.contact-card__photo {
+  width: 96px;
+  height: 96px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 1px solid color-mix(in srgb, var(--color-outline-variant) 70%, transparent);
+}
+
+.contact-card__body {
+  display: grid;
+  gap: 10px;
+}
+
+.contact-card__profession,
+.contact-card__role,
+.contact-card__description {
+  margin: 0;
+  color: var(--color-on-surface-variant);
+}
+
+.contact-card__profession {
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-size: 0.74rem;
+  font-weight: 700;
+}
+
+.contact-card__role {
+  font-weight: 600;
+}
+
+.contact-card__description {
+  line-height: 1.6;
+}
+
+.contact-card__links {
+  display: grid;
+  gap: 8px;
+}
+
+.contact-card__links a {
+  color: var(--color-primary);
+  text-decoration: none;
+  font-weight: 600;
+  word-break: break-word;
+}
+
+.contact-card__skills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.contact-card__skills span {
+  padding: 6px 10px;
+  border-radius: 999px;
+  font-size: 0.8rem;
+  color: var(--color-on-surface);
+  background: color-mix(in srgb, var(--color-primary-container) 62%, transparent);
 }
 
 .contact-grid strong {
@@ -1109,20 +1260,109 @@ main {
 
 @media (max-width: 720px) {
   .page-shell {
+    padding: 12px;
+  }
+
+  .topbar {
+    position: static;
+    top: auto;
+    gap: 12px;
     padding: 14px;
+    margin-bottom: 16px;
+  }
+
+  .brand-mark {
+    width: 100%;
+    justify-content: center;
+    text-align: center;
+  }
+
+  .nav-links {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px 12px;
+    justify-content: stretch;
+  }
+
+  .nav-links a {
+    text-align: center;
+    font-size: 0.84rem;
   }
 
   .hero,
   .section-block,
   .cta-band,
   .footer-card {
-    padding: 20px;
-    border-radius: 24px;
+    padding: 18px;
+    border-radius: 22px;
+  }
+
+  .hero {
+    gap: 18px;
+  }
+
+  .hero-copy {
+    gap: 14px;
   }
 
   .hero h1 {
     max-width: 100%;
-    font-size: clamp(2.5rem, 14vw, 4rem);
+    font-size: clamp(2.2rem, 11vw, 3.2rem);
+    line-height: 1;
+  }
+
+  .hero-text,
+  .section-intro p,
+  .footer-card p {
+    font-size: 0.95rem;
+    line-height: 1.6;
+  }
+
+  .hero-panel {
+    padding: 16px;
+    gap: 14px;
+  }
+
+  .hero-panel__header {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+  }
+
+  .hero-panel__month {
+    text-align: center;
+    font-size: 1rem;
+  }
+
+  .hero-panel__tabs {
+    width: 100%;
+  }
+
+  .app-card {
+    padding: 16px;
+    border-radius: 18px;
+  }
+
+  .week-strip {
+    gap: 6px;
+  }
+
+  .week-day {
+    min-height: 92px;
+    padding: 10px 6px;
+  }
+
+  .week-day span {
+    font-size: 0.72rem;
+  }
+
+  .week-day strong {
+    font-size: 1rem;
+  }
+
+  .event-card {
+    padding: 16px;
   }
 
   .hero-actions,
@@ -1140,8 +1380,45 @@ main {
   }
 
   .calendar-pill {
-    min-height: 56px;
-    padding: 12px 14px;
+    min-height: 52px;
+    padding: 10px 12px;
+  }
+
+  .kind-grid,
+  .benefit-grid,
+  .steps-grid {
+    gap: 12px;
+  }
+
+  .kind-card,
+  .benefit-card,
+  .step-card,
+  .contact-card {
+    padding: 16px;
+  }
+
+  .contact-card__photo {
+    width: 96px;
+    height: 96px;
+  }
+
+  .contact-card {
+    grid-template-columns: 1fr;
+    justify-items: center;
+    text-align: center;
+  }
+
+  .contact-card__body {
+    justify-items: center;
+  }
+
+  .contact-card__links,
+  .contact-card__skills {
+    justify-content: center;
+  }
+
+  .contact-card__skills span {
+    font-size: 0.74rem;
   }
 }
 </style>
