@@ -743,9 +743,13 @@ main {
   gap: 18px;
   padding: 22px;
   border-radius: 20px;
-  background: color-mix(in srgb, var(--color-inverse-surface) 8%, var(--color-surface));
-  border: 1px solid color-mix(in srgb, var(--color-on-surface) 6%, transparent);
-  box-shadow: 0 22px 60px color-mix(in srgb, var(--color-shadow) 18%, transparent);
+  background: linear-gradient(
+    180deg,
+    color-mix(in srgb, var(--color-surface) 94%, var(--color-primary-container)),
+    color-mix(in srgb, var(--color-surface) 86%, var(--color-surface-container-highest))
+  );
+  border: 1px solid color-mix(in srgb, var(--color-outline-variant) 72%, transparent);
+  box-shadow: 0 22px 60px color-mix(in srgb, var(--color-shadow) 10%, transparent);
   min-width: 0;
 }
 
@@ -868,7 +872,7 @@ main {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   width: min(100%, 356px);
-  border: 1px solid color-mix(in srgb, var(--color-primary) 72%, transparent);
+  border: 1px solid color-mix(in srgb, var(--color-primary) 58%, var(--color-outline-variant));
   border-radius: 18px;
   overflow: hidden;
 }
@@ -877,8 +881,8 @@ main {
   display: grid;
   place-items: center;
   padding: 14px 18px;
-  background: #2f2f2f;
-  color: #ededed;
+  background: color-mix(in srgb, var(--color-surface-container-highest) 72%, var(--color-surface));
+  color: var(--color-on-surface-variant);
   font-weight: 700;
   font-size: 1rem;
 }
@@ -891,22 +895,23 @@ main {
 .app-card {
   padding: 18px;
   border-radius: 20px;
-  background: #171717;
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: color-mix(in srgb, var(--color-surface) 86%, var(--color-surface-container-highest));
+  border: 1px solid color-mix(in srgb, var(--color-outline-variant) 64%, transparent);
 }
 
 .app-card h3 {
   margin: 0 0 16px;
   font-size: 1.02rem;
-  color: #f2f2f2;
+  color: var(--color-on-surface);
 }
 
 .app-card--highlight {
-  background: #131313;
+  background: color-mix(in srgb, var(--color-primary-container) 22%, var(--color-surface));
+  border-color: color-mix(in srgb, var(--color-primary) 28%, var(--color-outline-variant));
 }
 
 .app-card--list {
-  background: #171717;
+  background: color-mix(in srgb, var(--color-surface) 88%, var(--color-secondary-container));
 }
 
 .week-strip {
@@ -920,8 +925,8 @@ main {
   min-height: 108px;
   border: 0;
   border-radius: 16px;
-  background: #2c2c2c;
-  color: #f0f0f0;
+  background: color-mix(in srgb, var(--color-surface-container-highest) 76%, var(--color-surface));
+  color: var(--color-on-surface);
   padding: 12px 10px 16px;
   display: flex;
   flex-direction: column;
@@ -932,7 +937,12 @@ main {
 }
 
 .week-day.is-selected {
-  background: #ff5b4a;
+  background: linear-gradient(
+    180deg,
+    var(--color-primary),
+    color-mix(in srgb, var(--color-primary) 74%, black)
+  );
+  color: var(--color-on-primary);
 }
 
 .week-day span {
@@ -957,8 +967,8 @@ main {
   gap: 14px;
   padding: 18px;
   border-radius: 20px;
-  background: #222;
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: color-mix(in srgb, var(--color-surface) 90%, var(--color-secondary-container));
+  border: 1px solid color-mix(in srgb, var(--color-outline-variant) 72%, transparent);
 }
 
 .event-card + .event-card {
@@ -966,8 +976,8 @@ main {
 }
 
 .event-card--today {
-  background: #263226;
-  border-color: rgba(46, 125, 50, 0.35);
+  background: color-mix(in srgb, #2e7d32 12%, var(--color-surface));
+  border-color: color-mix(in srgb, #2e7d32 30%, var(--color-outline-variant));
 }
 
 .event-card__dot {
@@ -992,7 +1002,7 @@ main {
 }
 
 .event-card__head strong {
-  color: #f2f2f2;
+  color: var(--color-on-surface);
   font-size: 1.1rem;
 }
 
@@ -1000,22 +1010,22 @@ main {
   flex: none;
   padding: 6px 10px;
   border-radius: 999px;
-  background: rgba(255, 255, 255, 0.08);
-  color: #9fd59f;
+  background: color-mix(in srgb, var(--color-secondary-container) 72%, var(--color-surface));
+  color: var(--color-on-surface-variant);
   font-size: 0.76rem;
   font-weight: 700;
 }
 
 .event-card p {
   margin: 0;
-  color: #ededed;
+  color: var(--color-on-surface);
   font-size: 1rem;
 }
 
 .event-card small {
   display: block;
   margin-top: 6px;
-  color: #b9b9b9;
+  color: var(--color-on-surface-variant);
   line-height: 1.45;
 }
 
