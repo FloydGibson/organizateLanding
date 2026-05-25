@@ -409,11 +409,15 @@ const developerContacts = [
 
 :global(html) {
   scroll-behavior: smooth;
+  width: 100%;
+  overflow-x: clip;
 }
 
 :global(body) {
   margin: 0;
-  min-width: 320px;
+  width: 100%;
+  min-width: 0;
+  overflow-x: clip;
   background:
     radial-gradient(circle at top left, rgba(194, 24, 7, 0.14), transparent 30%),
     radial-gradient(circle at 80% 10%, rgba(0, 0, 0, 0.06), transparent 24%), var(--color-surface);
@@ -490,6 +494,7 @@ const developerContacts = [
   width: min(100%, 1440px);
   margin: 0 auto;
   padding: 24px;
+  overflow-x: clip;
 }
 
 .topbar,
@@ -514,6 +519,22 @@ const developerContacts = [
   padding: 16px 20px;
   border-radius: 24px;
   margin-bottom: 22px;
+}
+
+.topbar,
+.hero,
+.section-block,
+.cta-band,
+.footer-card,
+.hero-panel,
+.app-card,
+.benefit-card,
+.step-card,
+.kind-card,
+.contact-card,
+.ticker,
+.ticker-track {
+  min-width: 0;
 }
 
 .brand-mark {
@@ -570,6 +591,7 @@ const developerContacts = [
   flex-wrap: wrap;
   gap: 18px;
   justify-content: center;
+  min-width: 0;
 }
 
 .nav-links a {
@@ -626,6 +648,7 @@ const developerContacts = [
 main {
   display: grid;
   gap: 22px;
+  min-width: 0;
 }
 
 .hero {
@@ -640,6 +663,7 @@ main {
   display: grid;
   align-content: center;
   gap: 18px;
+  min-width: 0;
 }
 
 .eyebrow,
@@ -722,6 +746,7 @@ main {
   background: color-mix(in srgb, var(--color-inverse-surface) 8%, var(--color-surface));
   border: 1px solid color-mix(in srgb, var(--color-on-surface) 6%, transparent);
   box-shadow: 0 22px 60px color-mix(in srgb, var(--color-shadow) 18%, transparent);
+  min-width: 0;
 }
 
 .panel-top {
@@ -1022,6 +1047,14 @@ main {
   padding: 16px 24px;
   white-space: nowrap;
   overflow-x: auto;
+  max-width: 100%;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  overscroll-behavior-x: contain;
+}
+
+.ticker-track::-webkit-scrollbar {
+  display: none;
 }
 
 .ticker-track span {
@@ -1419,6 +1452,112 @@ main {
 
   .contact-card__skills span {
     font-size: 0.74rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .page-shell {
+    padding: 10px;
+  }
+
+  .topbar,
+  .hero,
+  .section-block,
+  .cta-band,
+  .footer-card {
+    border-radius: 18px;
+  }
+
+  .brand-mark {
+    gap: 10px;
+  }
+
+  .brand-logo {
+    width: 40px;
+    height: 40px;
+    border-radius: 12px;
+  }
+
+  .nav-links {
+    grid-template-columns: 1fr;
+  }
+
+  .nav-links a {
+    padding: 10px 12px;
+    border-radius: 14px;
+    background: color-mix(in srgb, var(--color-surface-container-highest) 50%, transparent);
+  }
+
+  .hero {
+    padding: 16px;
+  }
+
+  .hero h1,
+  .section-intro h2,
+  .cta-band h2,
+  .footer-card h2 {
+    max-width: 100%;
+  }
+
+  .hero h1 {
+    font-size: clamp(2rem, 13vw, 2.8rem);
+  }
+
+  .hero-stats {
+    gap: 10px;
+  }
+
+  .hero-stats article {
+    padding: 14px;
+  }
+
+  .hero-panel__tabs span {
+    padding: 12px 10px;
+    font-size: 0.88rem;
+  }
+
+  .week-strip {
+    gap: 5px;
+  }
+
+  .week-day {
+    min-height: 84px;
+    padding: 8px 4px;
+  }
+
+  .week-day strong {
+    font-size: 0.95rem;
+  }
+
+  .event-card,
+  .benefit-card,
+  .step-card,
+  .kind-card,
+  .contact-card {
+    padding: 14px;
+  }
+
+  .event-card__head {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .ticker-track {
+    gap: 24px;
+    padding: 12px 16px;
+  }
+
+  .ticker-track span {
+    font-size: 0.88rem;
+  }
+
+  .kind-card {
+    align-items: flex-start;
+  }
+
+  .contact-card__photo {
+    width: 84px;
+    height: 84px;
   }
 }
 </style>
