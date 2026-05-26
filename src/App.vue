@@ -130,7 +130,7 @@ const developerContacts = [
     role: 'Desarrollo de la interfaz movil y optimizacion de rendimiento.',
     description:
       'Aficionado del front-end y el diseño, siempre dispuesto a trabajar en todo tipo de proyectos.',
-    skills: ['Flutter / Dart'],
+    skills: ['Flutter / Dart', 'JavaScript', 'Node.js', 'Python', 'SQL', 'REST APIs', 'Java'],
     gitUser: 'FloydGibson',
     photoUrl: diegoOrtezPhoto,
   },
