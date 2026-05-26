@@ -186,6 +186,12 @@ const developerContacts = [
         <a href="#eventos">Tipos de eventos</a>
         <a href="#contacto">Contacto</a>
       </nav>
+
+      <div class="topbar-actions">
+        <button class="button button--ghost button--store" type="button" disabled>
+          Play Store · Próximamente
+        </button>
+      </div>
     </header>
 
     <main>
@@ -395,6 +401,30 @@ const developerContacts = [
             </div>
           </article>
         </div>
+      </section>
+
+      <section id="privacidad" class="footer-card footer-card--privacy">
+        <div class="section-intro">
+          <p class="section-label">Privacidad</p>
+          <h2>Nuestras políticas de privacidad:</h2>
+          <p>
+            Organizate guarda tu contenido de forma local en el dispositivo y solo usa servicios
+            externos cuando eliges iniciar sesión con Google. No vendemos tus datos ni los usamos
+            para publicidad basada en intereses.
+          </p>
+        </div>
+
+        <ul class="privacy-list">
+          <li>
+            Tu información se conserva mientras mantengas la app instalada o hasta que la borres.
+          </li>
+          <li>Los datos de Google Sign-In se usan únicamente para autenticar tu cuenta.</li>
+          <li>Puedes eliminar tus datos locales desde la app o desde los ajustes del sistema.</li>
+          <li>
+            Si necesitas ejercer tus derechos, puedes escribir a cualquiera de los correos del
+            equipo.
+          </li>
+        </ul>
       </section>
     </main>
   </div>
@@ -606,6 +636,12 @@ const developerContacts = [
   color: var(--color-on-surface);
 }
 
+.topbar-actions {
+  display: flex;
+  justify-content: flex-end;
+  min-width: 0;
+}
+
 .button {
   display: inline-flex;
   align-items: center;
@@ -643,6 +679,12 @@ const developerContacts = [
   border: 1px solid var(--color-outline-variant);
   color: var(--color-on-surface);
   background: color-mix(in srgb, var(--color-surface) 72%, transparent);
+}
+
+.button--store:disabled {
+  opacity: 0.72;
+  cursor: not-allowed;
+  box-shadow: none;
 }
 
 main {
@@ -1276,6 +1318,24 @@ main {
   font-size: 1.05rem;
 }
 
+.footer-card--privacy {
+  grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
+  align-items: start;
+}
+
+.privacy-list {
+  margin: 0;
+  padding-left: 20px;
+  display: grid;
+  gap: 12px;
+  color: var(--color-on-surface-variant);
+  line-height: 1.6;
+}
+
+.privacy-list li::marker {
+  color: var(--color-primary);
+}
+
 @media (max-width: 1080px) {
   .hero,
   .benefit-grid,
@@ -1298,6 +1358,15 @@ main {
   .nav-links {
     order: 3;
     width: 100%;
+  }
+
+  .topbar-actions {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .footer-card--privacy {
+    grid-template-columns: 1fr;
   }
 }
 
@@ -1418,6 +1487,11 @@ main {
     width: 100%;
   }
 
+  .button--store {
+    width: auto;
+    min-width: 100%;
+  }
+
   .calendar-grid {
     gap: 8px;
   }
@@ -1462,6 +1536,10 @@ main {
 
   .contact-card__skills span {
     font-size: 0.74rem;
+  }
+
+  .privacy-list {
+    padding-left: 18px;
   }
 }
 
