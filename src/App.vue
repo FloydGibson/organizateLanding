@@ -167,6 +167,77 @@ const developerContacts = [
     photoUrl: fernandoPhoto,
   },
 ]
+
+const privacySections = [
+  {
+    title: 'Resumen',
+    body: 'Organizate te ayuda a organizar eventos, proyectos, notas y sesiones de estudio. Toda la informacion se guarda de forma local en tu dispositivo. Esta politica explica que datos se usan, para que fines y con que terceros puede interactuar la app.',
+  },
+  {
+    title: 'Responsable del tratamiento',
+    monospace: true,
+    body:
+      'Responsables        Correo de contacto\n' +
+      'Diego Ortez         oc22002@ues.edu.sv\n' +
+      'Diego Agueda        ar23010@ues.edu.sv\n' +
+      'Jonathan Mejia      mr23005@ues.edu.sv\n' +
+      'Fernando Linares    lp23006@ues.edu.sv\n' +
+      'Pais o jurisdiccion principal: El Salvador.',
+  },
+  {
+    title: 'Informacion que recopilamos',
+    body:
+      'Cuenta: si inicias sesion con Google, recibimos tu nombre, correo y foto de perfil desde Google.\n' +
+      'Contenido que creas: eventos, tareas, recordatorios, proyectos, kanban, notas, metas, habitos, recurrencias y datos de pomodoro.\n' +
+      'Adjuntos: rutas locales de archivos que selecciones para adjuntar y los metadatos necesarios para mostrar esos archivos en la app.\n' +
+      'Preferencias: configuracion de tema y sesion almacenada en el dispositivo.',
+  },
+  {
+    title: 'Como usamos la informacion',
+    body: 'Usamos los datos para permitir el inicio de sesion, mostrar tu contenido, organizar calendarios y proyectos, y mantener tu progreso (por ejemplo, sesiones de estudio). No vendemos tu informacion ni la usamos para publicidad basada en intereses.',
+  },
+  {
+    title: 'Base legal',
+    body: 'Tratamos tus datos con base en tu consentimiento y en la ejecucion del servicio que solicitas al usar la app. Cuando corresponda, aplicamos el interes legitimo para mejorar estabilidad y seguridad.',
+  },
+  {
+    title: 'Permisos del dispositivo',
+    body:
+      'Archivos: para adjuntar documentos locales a tus eventos.\n' +
+      'Modo No Molestar (Android): si activas sesiones de enfoque, la app puede solicitar este permiso para reducir interrupciones.\n' +
+      'Pantalla activa: se puede mantener la pantalla encendida durante pomodoro.',
+  },
+  {
+    title: 'Almacenamiento y retencion',
+    body: 'Los datos se guardan localmente en el dispositivo usando la base de datos Sembast y las preferencias del sistema. Se conservan mientras mantengas la app instalada o hasta que los elimines. Al desinstalar la app o borrar sus datos desde el sistema operativo, la informacion local se elimina.',
+  },
+  {
+    title: 'Compartir datos y terceros',
+    body:
+      'Google Sign-In (Google LLC): autentica tu cuenta y comparte nombre, correo y foto.\n' +
+      'No compartimos tu contenido con servidores propios ni con terceros para fines publicitarios. Todo el contenido se almacena localmente en tu dispositivo.',
+  },
+  {
+    title: 'Transferencias internacionales',
+    body: 'Los servicios de Google pueden procesar datos en paises distintos a El Salvador. Dichos proveedores aplican sus propias medidas de seguridad y mecanismos de transferencia internacional.',
+  },
+  {
+    title: 'Seguridad',
+    body: 'Aplicamos medidas razonables para proteger la informacion local, pero no podemos garantizar seguridad absoluta. Te recomendamos proteger el acceso a tu dispositivo con PIN, huella o bloqueo equivalente.',
+  },
+  {
+    title: 'Derechos y eliminacion de cuenta',
+    body: 'Puedes solicitar el acceso, rectificacion o eliminacion de tus datos en cualquier momento. La app incluye una opcion en el menu de configuracion para eliminar tu cuenta y limpiar los datos locales inmediatamente. Antes de confirmar, se muestra un aviso que explica que la accion borrara la informacion guardada en el dispositivo y no se puede deshacer, con la posibilidad de cancelar. Tambien puedes ejercer tus derechos escribiendo a cualquiera de los correos de los responsables del tratamiento.',
+  },
+  {
+    title: 'Menores de edad',
+    body: 'La app puede ser usada libremente por personas menores de edad. No recopilamos intencionalmente datos de menores ni solicitamos informacion sensible.',
+  },
+  {
+    title: 'Cambios a esta politica',
+    body: 'Podemos actualizar esta politica para reflejar cambios en la app o en la normativa aplicable. Publicaremos la version actualizada con nueva fecha.',
+  },
+]
 </script>
 
 <template>
@@ -404,27 +475,25 @@ const developerContacts = [
       </section>
 
       <section id="privacidad" class="footer-card footer-card--privacy">
-        <div class="section-intro">
-          <p class="section-label">Privacidad</p>
-          <h2>Nuestras políticas de privacidad:</h2>
-          <p>
-            Organizate guarda tu contenido de forma local en el dispositivo y solo usa servicios
-            externos cuando eliges iniciar sesión con Google. No vendemos tus datos ni los usamos
-            para publicidad basada en intereses.
-          </p>
-        </div>
+        <details class="privacy-toggle">
+          <summary class="privacy-summary">
+            <div>
+              <p class="section-label">Privacidad</p>
+              <h2>Politicas de privacidad</h2>
+              <p>Ver el texto legal completo.</p>
+            </div>
+            <span class="privacy-summary__hint">Mostrar / ocultar</span>
+          </summary>
 
-        <ul class="privacy-list">
-          <li>
-            Tu información se conserva mientras mantengas la app instalada o hasta que la borres.
-          </li>
-          <li>Los datos de Google Sign-In se usan únicamente para autenticar tu cuenta.</li>
-          <li>Puedes eliminar tus datos locales desde la app o desde los ajustes del sistema.</li>
-          <li>
-            Si necesitas ejercer tus derechos, puedes escribir a cualquiera de los correos del
-            equipo.
-          </li>
-        </ul>
+          <div class="privacy-toggle__body">
+            <div class="privacy-sections">
+              <article v-for="section in privacySections" :key="section.title" class="privacy-item">
+                <h3>{{ section.title }}</h3>
+                <p :class="{ 'privacy-item__body--mono': section.monospace }">{{ section.body }}</p>
+              </article>
+            </div>
+          </div>
+        </details>
       </section>
     </main>
   </div>
@@ -1319,21 +1388,109 @@ main {
 }
 
 .footer-card--privacy {
-  grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
   align-items: start;
+  width: 100%;
+  max-width: none;
+  margin-inline: 0;
+  padding: 22px;
 }
 
-.privacy-list {
-  margin: 0;
-  padding-left: 20px;
+.privacy-toggle {
   display: grid;
-  gap: 12px;
-  color: var(--color-on-surface-variant);
-  line-height: 1.6;
+  gap: 14px;
+  width: 100%;
 }
 
-.privacy-list li::marker {
-  color: var(--color-primary);
+.privacy-toggle > summary {
+  list-style: none;
+}
+
+.privacy-toggle > summary::-webkit-details-marker {
+  display: none;
+}
+
+.privacy-summary {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 16px;
+  cursor: pointer;
+  padding: 16px 18px;
+  border-radius: 20px;
+  border: 1px solid color-mix(in srgb, var(--color-outline-variant) 66%, transparent);
+  background: color-mix(in srgb, var(--color-surface-container-highest) 18%, transparent);
+}
+
+.privacy-summary > div {
+  min-width: 0;
+}
+
+.privacy-summary h2 {
+  margin: 2px 0 4px;
+  font-size: clamp(1.15rem, 2vw, 1.5rem);
+  max-width: none;
+}
+
+.privacy-summary p {
+  margin: 0;
+  font-size: 0.82rem;
+  line-height: 1.45;
+  color: var(--color-on-surface-variant);
+}
+
+.privacy-summary__hint {
+  flex: none;
+  padding: 8px 12px;
+  border-radius: 999px;
+  font-size: 0.74rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-on-surface);
+  background: color-mix(in srgb, var(--color-primary-container) 46%, transparent);
+}
+
+.privacy-toggle[open] .privacy-summary {
+  border-color: color-mix(in srgb, var(--color-primary) 28%, var(--color-outline-variant));
+}
+
+.privacy-toggle__body {
+  padding: 2px 0 0;
+}
+
+.privacy-sections {
+  display: grid;
+  gap: 14px;
+  width: 100%;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.privacy-item {
+  padding: 14px 16px;
+  border-radius: 20px;
+  border: 1px solid color-mix(in srgb, var(--color-outline-variant) 66%, transparent);
+  background: color-mix(in srgb, var(--color-surface-container-highest) 24%, transparent);
+  min-width: 0;
+}
+
+.privacy-item h3 {
+  margin: 0 0 4px;
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: var(--color-on-surface);
+}
+
+.privacy-item p {
+  margin: 0;
+  font-size: 0.82rem;
+  line-height: 1.55;
+  color: var(--color-on-surface-variant);
+  white-space: pre-line;
+}
+
+.privacy-item__body--mono {
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 0.76rem;
 }
 
 @media (max-width: 1080px) {
@@ -1365,7 +1522,16 @@ main {
     justify-content: center;
   }
 
-  .footer-card--privacy {
+  .privacy-summary {
+    grid-template-columns: 1fr;
+    align-items: start;
+  }
+
+  .privacy-summary__hint {
+    align-self: flex-start;
+  }
+
+  .privacy-sections {
     grid-template-columns: 1fr;
   }
 }
@@ -1538,8 +1704,12 @@ main {
     font-size: 0.74rem;
   }
 
-  .privacy-list {
-    padding-left: 18px;
+  .privacy-item {
+    padding: 12px 14px;
+  }
+
+  .privacy-summary {
+    padding: 14px;
   }
 }
 
