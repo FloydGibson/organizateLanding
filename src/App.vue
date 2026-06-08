@@ -271,8 +271,7 @@ const privacySections = [
           <h1>Organiza tu vida con una vista clara, serena y enfocada.</h1>
           <p class="hero-text">
             Organizate reúne tareas, metas, clases, proyectos y actividades personales en una
-            experiencia visual pensada para ordenar sin saturarte. Una landing limpia, elegante y
-            lista para sumar imágenes más adelante.
+            experiencia visual pensada para ordenar sin saturarte.
           </p>
 
           <div class="hero-actions">
