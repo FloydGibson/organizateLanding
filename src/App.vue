@@ -171,7 +171,7 @@ const developerContacts = [
 const privacySections = [
   {
     title: 'Resumen',
-    body: 'Organizate te ayuda a organizar eventos, proyectos, notas y sesiones de estudio. Toda la informacion se guarda de forma local en tu dispositivo. Esta politica explica que datos se usan, para que fines y con que terceros puede interactuar la app.',
+    body: 'Proyecto • Kairós te ayuda a organizar eventos, proyectos, notas y sesiones de estudio. Toda la informacion se guarda de forma local en tu dispositivo. Esta politica explica que datos se usan, para que fines y con que terceros puede interactuar la app.',
   },
   {
     title: 'Responsable del tratamiento',
@@ -244,9 +244,9 @@ const privacySections = [
   <div class="page-shell">
     <header class="topbar">
       <div class="brand-mark">
-        <img class="brand-logo" :src="logoUrl" alt="Organizate" />
+        <img class="brand-logo" :src="logoUrl" alt="Proyecto Kairós" />
         <div>
-          <p>Organizate</p>
+          <p>Proyecto • Kairós</p>
           <span>Planifica con intención</span>
         </div>
       </div>
@@ -270,7 +270,7 @@ const privacySections = [
         <div class="hero-copy">
           <h1>Organiza tu vida con una vista clara, serena y enfocada.</h1>
           <p class="hero-text">
-            Organizate reúne tareas, metas, clases, proyectos y actividades personales en una
+            Proyecto Kairós reúne tareas, metas, clases, proyectos y actividades personales en una
             experiencia visual pensada para ordenar sin saturarte.
           </p>
 
@@ -434,7 +434,7 @@ const privacySections = [
       <section id="contacto" class="footer-card">
         <div class="section-intro">
           <p class="section-label">Contacto</p>
-          <h2>Conoce al equipo detrás de Organizate.</h2>
+          <h2>Conoce al equipo detrás de Proyecto Kairós.</h2>
           <p>
             Esta es la información de contacto y el aporte principal de cada desarrollador que
             participa en la app.
